@@ -1,0 +1,10 @@
+apply plugin: 'scala'
+
+description = 'zephyr-spark-streaming'
+
+dependencies {
+    compile project(':zephyr-core')
+    compile 'org.scala-lang:scala-library:2.9.2'
+    compile 'org.spark-project:spark-streaming_2.9.2:0.7.0'
+    testCompile 'junit:junit:4.11'
+}
