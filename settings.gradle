@@ -1,1 +1,1 @@
-include ':zephyr-core', ':zephyr-mapreduce'
+include ':zephyr-core', ':zephyr-mapreduce', ':zephyr-storm'
