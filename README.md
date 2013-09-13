@@ -1,6 +1,11 @@
 Zephyr - ETL at Scale
 ========================
 
+Current Status
+-----------------------
+Initial Release 0.1.0!
+ - Storm and Spark Streaming are going to go in their own branches and not be included in this release - checkout branch storm-dev and (eventually) spark-streaming-dev for a peek at these!
+
 Why?
 ------------------------
 ETL - Extract, Transform, and Load - has been around for decades.  The concept of taking data in one form, 
@@ -74,3 +79,8 @@ you a great example for building and running a Zephyr ETL job.  We invite you to
 
 You are welcome to extend or enhance these - or supercede them entirely.  If you feel that your solution
 is superior to the one bundled - please fork and submit a pull request!
+
+Other Resources
+--------------------------
+- <a href="https://github.com/Sotera/zephyr-sample-project">Zephyr Sample Project(s)</a> - A sample project structure that shows off how you might use Zephyr
+- <a href="https://github.com/Sotera/zephyr-contrib">Zephyr Contrib</a> - for projects that don't really belong in Zephyr, but can be used with Zephyr to add other capabilities (like Accumulo visibility controls)
