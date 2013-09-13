@@ -1,0 +1,8 @@
+description = 'zephyr-mapreduce'
+
+dependencies {
+    compile project(':zephyr-core')
+    hadoopProvided 'org.apache.hadoop:hadoop-client:2.0.0-mr1-cdh4.3.0'
+    compile 'org.springframework:spring-context:3.2.1.RELEASE'
+    testCompile 'junit:junit:4.11'
+}

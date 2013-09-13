@@ -1,0 +1,176 @@
+<html>
+<head><title>Zephyr Developer Documentation</title>
+</head>
+<body>
+<h1>Zephyr Developer Documentation</h1>
+
+<h3>Table of Contents</h3>
+
+<p>
+<ol>
+    <li><a href="#preprocessing">Preprocessing</a></li>
+    <li><a href="#parsing">Parsing</a></li>
+    <li><a href="#schema">Schema</a>
+        <ol>
+            <li><a href="#pre-validation">Pre-Validation</a></li>
+            <li><a href="#normalization">Normalization</a></li>
+            <li><a href="#post-validation">Post-Validation</a></li>
+            <li><a href="#canonicalization">Canonicalization</a></li>
+            <li><a href="#record">Records and Entries</a></li>
+        </ol>
+    </li>
+    <li><a href="#enrichment">Enrichment</a></li>
+    <li><a href="#output">Output</a></li>
+</ol>
+</p>
+
+<h3><a name="preprocessing">Preprocessing</a></h3>
+<h5>What is it and why do we do it?</h5>
+
+<p>In most cases, we'd like to believe you have no preprocessing to do in Zephyr. Steps like unzipping files and placing
+    them in the correct HDFS location SHOULD be managed in more robust systems for this purpose, like OODT or Nutch (or
+    Oozie or even just bash scripts). However, sometimes our data is anything but clean. Sometimes our data needs to be
+    organized a little better, to be cleaned up solely in terms of its adherence to basic Csv or XML rules. A variety of
+    tools exist to do jobs like these; tools like DataWrangler or OptiWrangle. Rather than write very complex parsers,
+    it would be far nicer if we could offload this data cleanup and data enhancement step to another tool who handles it
+    better. Preprocessors are brand new and still need a lot of work, but it is our hope that by integrating DataWrangle
+    as a preprocessor, we can hopefully avoid complex custom parsers in favor of using a generalized, configurable
+    CsvParser - which makes for less code we need to maintain.</p>
+
+<h3><a name="parsing">Parsing</a></h3>
+<h5>Parser API</h5>
+
+<p>Our parser API is very simple, though it's possible this simplicity may cause issues for far more complex parsing
+    needs (if so, please contact us!). The parser interface is as follows: <br/><br/>
+    <code>public interface Parser {<br/><br/>
+
+        public ProcessingResult
+        <List
+        <Pair>, byte[]> parse() throws IOException;<br/><br/>
+
+            public Parser newInstance(InputStream inputStream);<br/><br/>
+
+            }
+    </code><br/><br/>
+
+    The method <code>public Parser newInstance(InputStream inputStream)</code> is a factory method that will create a
+    new Parser object with the same configuration information as the original Parser. As you can see, it requires an
+    InputStream to be provided for a new Parser to be created; this Parser then will operate over that InputStream and
+    only that InputStream. <br/><br/>
+    As you can see from the <code>ProcessingResult
+        <List
+        <Pair>, byte[]> parse()
+    </code> method, it returns a custom, parameterized object called <code>ProcessingResult</code>. ProcessingResult is
+    a pretty simple class; the first parameter defines the type of data that comes out if the parse() method was
+    successful, the second parameter defines the "raw original data" that failed our processing step, and hidden inside
+    the object is a Throwable - or the reason why our parse call may have failed. <br/><br/><b>If parse() cannot be
+        completed because we are finished with our InputStream, we simply return null.</b></p>
+
+<h3><a name="schema">Schema</a></h3>
+
+<p>A Schema is our java class that defines what data we expect to be provided from the parser (in List
+    <Pair> form), what fields that we <b>require</b> to be there for a record to be considered valid, validation rules
+        for each and every field (both pre-normalization-validation and post-normalization-validation), 0..N
+        Normalization procedures to follow, and finally, what we want to call this field within our system.<br/><br/>
+        <b>Vital Note</b> Our schemas allow you to create *multiple* schemata entries for the same incoming field. You
+        would use this capability if you had a single data field that needed to be split out into N number of fields,
+        each with their own validation routines and normalization procedures (an example would be if you wanted to
+        explicitly write out the year, month, and day of a YYYY-MM-DD formatted field, or split a single
+        latitude/longitude field into separate fields).
+</p>
+<h5><a name="pre-validation">Pre-Validation</a></h5>
+
+<p>Pre-validation is most often simply a not empty check. We're ultimately using this to filter out data from running
+    0..N normalizers over it if it doesn't even exist - wasted processing time. However, you could write your own,
+    custom Validator that implements the following interface, to do whatever you wish!<br/><br/>
+    <code>public interface Validator {<br/><br/>
+
+        boolean isValid(final String value);<br/><br/>
+
+        }</code><br/><br/>
+
+</p>
+<h5><a name="normalization">Normalization</a></h5>
+
+<p>As we mentioned above, we can support 0..N normalizers. Some data, we want to take it as it is - but others, most
+    normally things like "DateTime", come in in a variety of formats. Rather than write
+    date conversion routines into each of our analytics, it makes far more sense to normalize our DateTime into a
+    standard format (like ISO 8601). This also holds true for things like DMS to Decimal Degrees, or converting all
+    distances into miles. The reason we support 0..N is the idea of, hopefully, chaining Normalizers together to achieve
+    desired functionality instead of writing a custom normalizer for every new field. "Generally, when it makes sense to
+    generalize, do, but not a moment before. For the most part."<br/><br/>
+    Normalizers, like validators, have a pretty simple contract - configuration information for Normalizers (and
+    Validators) would go into their constructor in their Schema definition:<br/><br/>
+    <code>
+        public interface Normalizer {<br/><br/>
+
+        String normalize(String value) throws NormalizationException;<br/><br/>
+
+        }</code><br/><br/>
+    <b>Vital Note</b>If a field fails Normalization through a NormalizationException, it will not be added to the
+    resulting data structure - and if it is a required field, may result in the dropping of the row.</p>
+<h5><a name="post-validation">Post Validation</a></h5>
+
+<p>After pre-validation, after our normalization routines, we have the post validation step. It may very well be the
+    precise same step as the pre-validation routine - ultimately, it is meant to ensure that your normalization routines
+    didn't result in data far from what you actually expected. It's a double check on human error!</p>
+<h5><a name="canonicalization">Canonicalization</a></h5>
+
+<p>Canonicalization is the step where we turn our incoming data's name from, say, "text", into "textual-data-element".
+    Or "lat" into "latitude". Or "email" into "//person//contact//email". Ultimately, the finalized nomenclature is up
+    to you and your organization. You may want to go all out and back your canonicalization with an ontology - or you
+    may be fine with a taxonomy. Or you may be okay with a laissez-faire, ad-hoc, anything-goes process. Because we want
+    to support the former, even the latter must go through the CatalogService lookup phase. Currently, our default,
+    provided CatalogService behaves as a simple pass through. It is expected that you will implement a different
+    CatalogService implmentation, possibly with a more rigorous, peer reviewed, curated system, for better
+    interoperability between groups in your organization.</p>
+<h5><a name="record">Records and Entries</a></h5>
+
+<p>In the entirety of this Schema mapping step, we have been operating over a List
+    <Pair> items and applying the defined schemata for them. To what end? Ultimately, we need to populate another data
+        object that supports a few things more than the simple "Pair" object. Enter the Record and Entry classes! The
+        Entry is generated by our CatalogService when it finds the correct taxonomical name and type for our requested
+        term. It also contains the field data that we validated and normalized, and it also has two more interesting
+        fields; a Visibility field (for datastores that support field level visibility tags), a list of types that also
+        should be in our CatalogService, and a metadata field, a field that can be used in many ways (in essence, its
+        behavior is ill-defined on purpose). Currently, we tokenize on the "\u0000" unicode null character, and group
+        related fields (like latitude and longitude) together. This is useful if a single record contains two latitude
+        and longitude fields, so we can correctly identify which latitude goes with which longitude. Your uses may be
+        very different! (As always, on every front, we are open to suggestions to improve this feature!)<br/><br/>
+        The Record is simply a collection of Entries that indicate a record, event, or row. It is Iterable
+        <Entry>, and is the "final" data object we use in our zephyr contracts.
+</p>
+<h3><a name="enrichment">Enrichment</a></h3>
+
+<p>Enrichment is any activity where we take one or more than one field of an Record and do a micro analytic activity
+    upon it. Enrichment is row/record/event specific - it isn't judging other rows/records/events against the one it is
+    enriching, but it is enriching itself with the data it contains. These enrichers are chained in sequence and should
+    not expect thrown exceptions to cease further enrichment activities. Enrichers should not be seen as providing
+    necessary fields, but instead trying to make the Record more useful for further analytics, if it can. Consider them
+    as a "nicety".</p>
+
+<h3><a name="output">Output</a></h3>
+
+<p>Output is an interesting step. Right now, we provide a few capabilities in Zephyr Core for turning an Record into a
+    "Hive Table Formatted" file, with Entries reordered to fit our outgoing table structure, and null fields to be
+    written out (generally speaking, Records don't often contain empty fields unless you specifically ask for them by
+    using the AlwaysValidValidator. It's extra data and unnecessary waste, especially in platforms that operate over
+    network IO instead of in memory.) However, it's also possible that you may want to write to Accumulo or some other
+    system - or even output your data to HDFS in a completely different file format. In the case of file formats, we
+    have you covered with our
+    org.zephyr.output.formatter.OutputFormatter class. The interface is as follows: <br/><br/>
+    <code>public interface OutputFormatter {<br/><br/>
+
+        byte [] formatRecord(Record record);<br/><br/>
+
+        }
+    </code><br/><br/>
+
+    Currently most of our focus has been in ensuring we can output data to HDFS. Our current platform support;
+    MapReduce, Standalone - they both expect us to be dealing in byte arrays for our output. However, there may come a
+    time when we need to support a more abstracted view - in essence, we're asking you to be cognizant that this portion
+    of our API may change. It, like our Canonicalization / NamingService, need to be more robust.</p>
+
+</body>
+</html>
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This configuration file defines and instantiates the non-configurable validators for use throughout the 
+incorporating systems and implementations.
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="alwaysValidValidator" class="org.zephyr.schema.validator.AlwaysValidValidator"/>
+    <bean id="decimalDegreesLatitudeValidator" class="org.zephyr.schema.validator.DecimalDegreesLatitudeValidator"/>
+    <bean id="decimalDegreesLongitudeValidator" class="org.zephyr.schema.validator.DecimalDegreesLongitudeValidator"/>
+    <bean id="doubleValidator" class="org.zephyr.schema.validator.DoubleValidator"/>
+    <bean id="integerValidator" class="org.zephyr.schema.validator.IntegerValidator"/>
+    <bean id="longValidator" class="org.zephyr.schema.validator.LongValidator"/>
+    <bean id="nonEmptyValidator" class="org.zephyr.schema.validator.NonEmptyValidator"/>
+    <!-- bean id="isoDateFormatValidator" class="org.zephyr.schema.validator.IsoDateFormatValidator"/ --> <!-- validator does not even yet work -->
+
+</beans>
