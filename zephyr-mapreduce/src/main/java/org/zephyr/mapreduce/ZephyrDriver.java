@@ -25,7 +25,7 @@ import org.zephyr.util.UUIDHelper;
 
 public class ZephyrDriver extends Configured implements Tool {
 
-    public static final String DEFAULT_CACHE_FOLDER_NAME = "distributed-cache";
+    public static final String DEFAULT_CACHE_FOLDER_NAME = "lib";
     private static HelpFormatter helpFormatter = new HelpFormatter();
 
     private ZephyrMRv1Configuration config;
@@ -109,9 +109,8 @@ public class ZephyrDriver extends Configured implements Tool {
         }
         currDir = currDir.getAbsoluteFile();
 
-        // check to make sure the distributed-cache/libs and
-        // distributed-cache/resources folder exists
-        String libDir = currDir.getAbsolutePath() + File.separator + "lib";
+        // check to make sure the lib folder exists
+        String libDir = currDir.getAbsolutePath();
         File libs = new File(libDir);
 
         if (!libs.exists() || !libs.isDirectory()) {
@@ -148,7 +147,8 @@ public class ZephyrDriver extends Configured implements Tool {
     private static Options buildCommandLineOptions() {
         Options options = new Options();
 
-        options.addOption("cache", true, "Path to folder containing distributed-cache and job config.  Default value is current directory.");
+        options.addOption("cache", true, "Path to folder containing the lib directory.  Default value is ${current.directory}/lib - " + "" +
+                "if you aren't starting Zephyr in the Zephyr distribution directory, you will need to specify the cache value.");
         options.addOption("job", true, "Name of xml file containing job configuration.");
         options.addOption("ip", true, "Input Path to run Zephyr ingest over (in hdfs).  Overrides job configuration setting.");
         options.addOption("op", true, "Output Path for Zephyr ingest to output to (in hdfs).  Overrides job configuration setting.");
@@ -162,7 +162,6 @@ public class ZephyrDriver extends Configured implements Tool {
 
         helpFormatter.printHelp("hadoop jar zephyr-mapreduce-<version>.jar org.zephyr.mapreduce.ZephyrDriver [option]...", options);
         System.exit(1);
-
     }
 
     private static File resolveWorkingDirectory(String path) {
