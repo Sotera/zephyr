@@ -11,6 +11,7 @@ subprojects {
 
     repositories {
         mavenLocal()
+        mavenCentral()
         mavenRepo url: "https://repository.cloudera.com/artifactory/cloudera-repos"
         mavenRepo url: "http://clojars.org/repo"
         mavenRepo url: "http://repo.maven.apache.org/maven2"
