@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Created by jostinowsky on 2014-04-08.
+ * The DepthFirstJSONParser will parse a JSON file using STAXON, which is based off of STAX streaming.
+ * This works the same as the XML parser, but with a JSON file, so the same rules apply.  
+ * If there are tags above the repeatingQName, they will be returned with each repeating value.
  */
 public class DepthFirstJSONParser extends Parser{
 
@@ -65,7 +67,6 @@ public class DepthFirstJSONParser extends Parser{
                     currentPairsToWriteTo.add(new Pair(printStackName(nameStack), this.reader.getText()));
                 } else if (this.reader.isEndElement()) {
                     nameStack.pop();
-                    String s = this.reader.getLocalName();
                     if (this.reader.getLocalName().equals(repeatingQName)) {
                         // If we have a sourceElementIdentifier, such as a filename specified, we shall return it.
                         if (getSourceElementIdentifier() != null) {
