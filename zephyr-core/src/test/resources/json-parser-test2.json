@@ -1,0 +1,22 @@
+{
+    "date": "2012-03-04",
+    "gate": "C",
+    "bacon":null,
+    "customers": [
+        {
+            "first_name": "vlad",
+            "last_name": "tepes",
+            "country_of_origin": "Romania"
+        },
+        {
+            "first_name": "anonymous",
+            "last_name": "frankenstein",
+            "country_of_origin": "Germany"
+        },
+        {
+            "first_name": "davros",
+            "last_name": "",
+            "country_of_origin": "Skaro"
+        }
+    ]
+}
