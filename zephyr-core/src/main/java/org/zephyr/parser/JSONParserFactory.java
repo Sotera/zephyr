@@ -3,9 +3,6 @@ package org.zephyr.parser;
 import javax.xml.stream.FactoryConfigurationError;
 import java.io.InputStream;
 
-/**
- * Created by jostinowsky on 2014-04-08.
- */
 public class JSONParserFactory implements ParserFactory {
 
     public static final String DEPTH_FIRST = "depth_first";
