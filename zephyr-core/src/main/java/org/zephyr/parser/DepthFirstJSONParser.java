@@ -20,14 +20,14 @@ import java.util.Stack;
  */
 public class DepthFirstJSONParser extends Parser{
 
-    private String repeatingQName;
+    private String repeatingObjectName;
     private XMLStreamReader reader;
     private Exception exceptionCreatingStreamReader;
     private Stack<String> nameStack;
     private List<Pair> pairsArchetype;
 
-    public DepthFirstJSONParser(String repeatingQName, InputStream inputStream){
-        this.repeatingQName = repeatingQName;
+    public DepthFirstJSONParser(String repeatingObjectName, InputStream inputStream){
+        this.repeatingObjectName = repeatingObjectName;
         nameStack = new Stack<String>();
         this.pairsArchetype = new ArrayList<Pair>();
         JsonXMLInputFactory factory = new JsonXMLInputFactory();
@@ -50,7 +50,7 @@ public class DepthFirstJSONParser extends Parser{
             while (this.reader.hasNext()) {
             	this.reader.next();
                 if (this.reader.isStartElement()) {
-                    if (this.reader.getLocalName().equals(repeatingQName)) {
+                    if (this.reader.getLocalName().equals(repeatingObjectName)) {
                         atRepeat = true;
                         if (pairsArchetype.size() > 0) {
                             pairs.addAll(pairsArchetype);
@@ -67,7 +67,7 @@ public class DepthFirstJSONParser extends Parser{
                     currentPairsToWriteTo.add(new Pair(printStackName(nameStack), this.reader.getText()));
                 } else if (this.reader.isEndElement()) {
                     nameStack.pop();
-                    if (this.reader.getLocalName().equals(repeatingQName)) {
+                    if (this.reader.getLocalName().equals(repeatingObjectName)) {
                         // If we have a sourceElementIdentifier, such as a filename specified, we shall return it.
                         if (getSourceElementIdentifier() != null) {
                             pairs.add(getSourceElementPair());
