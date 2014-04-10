@@ -10,11 +10,11 @@ public class JSONParserFactory implements ParserFactory {
 
     public static final String DEPTH_FIRST = "depth_first";
 
-    private String repeatingQName;
+    private String repeatingObjectName;
     private String type;
 
-    public JSONParserFactory(String repeatingQName) {
-        this.repeatingQName = repeatingQName;
+    public JSONParserFactory(String repeatingObjectName) {
+        this.repeatingObjectName = repeatingObjectName;
         this.type = DEPTH_FIRST;
     }
 
@@ -25,7 +25,7 @@ public class JSONParserFactory implements ParserFactory {
     @Override
     public Parser newParser(InputStream inputStream) {
         if (this.type.equals(DEPTH_FIRST)) {
-            return new DepthFirstJSONParser(repeatingQName, inputStream);
+            return new DepthFirstJSONParser(repeatingObjectName, inputStream);
         } else {
             throw new FactoryConfigurationError("The only parser implementation available is " + DEPTH_FIRST);
         }
