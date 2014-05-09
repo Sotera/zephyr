@@ -1,0 +1,6 @@
+.idea
+Gemfile.lock
+.DS_Store
+_site
+.settings
+.gradle
