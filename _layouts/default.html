@@ -1,0 +1,74 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zephyr</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container bs-docs-container" id="holder">
+    <!-- HEADER STARTS HERE -->
+    <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="https://github.com/Sotera/zephyr">Zephyr</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav" id="hashLinks">
+                    <li><a href="#index" onclick="loadHtml('index-partial.html');">Home</a></li>
+                    <li><a id="about" href="#about" onclick="loadHtml('about-partial.html');">About</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#doc" onclick="loadHtml('doc-partial.html');">Index</a></li>
+                            <li><a href="#">Feature1</a></li>
+                            <li><a href="#">Another Feature</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="https://github.com/Sotera/zephyr">Source</a></li>
+                    <li><a href="#examples" onclick="loadHtml('examples-partial.html');">Examples</a></li>
+                    <li><a href="#status" onclick="loadHtml('status-partial.html');">Status</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- ///////////////////////////////// -->
+
+    <!-- THIS IS WHERE EACH PAGE WILL LOAD -->
+    <div class="wrapper">
+        <div id="body">
+            {{ content }}
+        </div>
+        <div class="push"></div>
+    </div>
+    <!-- ///////////////////////////////// -->
+
+    <!-- FOOTER STARTS HERE -->
+    <footer class="panel-footer" style="background-color: white;" role="contentinfo">
+        <div class="container" style="text-align: center;">
+            <div id="foot">
+                <p>&#169; Zephyr</p>
+
+                <p>Something Else Needs To Go Here</p>
+            </div>
+        </div>
+    </footer>
+    <!-- ///////////////////////////////// -->
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
