@@ -1,0 +1,33 @@
+---
+layout: base
+---
+
+<h3><a name="how-to-build" class="anchor" href="#how-to-build"><span class="glyphicon glyphicon-link"></span>How to Build Zephyr</a></h3>
+<h4><a name="requirements" class="anchor" href="#requirements"><span class="glyphicon glyphicon-link"></span>Requirements</a></h4>
+<ul>
+    <li>
+        <a href="http://git-scm.com/">Git</a>
+    </li>
+    <li>
+        <a href="http://www.gradle.org/">Gradle</a>
+    </li>
+    <li>
+        <a href="https://www.java.com/en/download/">Java 7</a>
+    </li>
+    <li>
+        <a href="http://www.cloudera.com/content/cloudera/en/home.html">CDH 5.0.0 (MRv1)</a> - Untested on other Hadoop distributions (but it probably works!)
+    </li>
+    <li>
+        <a href="http://sotera.github.io/zephyr/HowToGet/">Acquire Zephyr and Zephyr Sample Project</a>
+    </li>
+</ul>
+
+<pre>
+    <code>
+        $ cd zephyr
+        $ gradle clean install
+        $ cd ../zephyr-sample-project
+        $ gradle clean dist -PcdhVersion=cdh5
+    </code>
+</pre>
+<b>Note:</b> The flag -PcdhVersion can be set to either cdh4 or cdh5.  To specify a specific version, edit the file zephyr-sample-project/sample-project-mapreduce/gradle.properties.
