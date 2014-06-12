@@ -2,35 +2,4 @@
 layout: base
 ---
 
-<h3><a name="about" class="anchor" href="#about"><span class="glyphicon glyphicon-link"></span></a>About</h3>
-Zephyr was the genesis of porting a proprietary, real time, single node ETL process to Storm.  Through work done on the previous system, the generic steps in a common ETL
-process was clearly defined;
-<ol>
-    <li>Initial Data enters system</li>
-    <li>Pre-process</li>
-    <li>Parse</li>
-    <li>Normalize, Validate, and Canonicalize</li>
-    <li>Enrich</li>
-    <li>Output</li>
-</ol>
-With the exception of output, all of these steps are BigData platform agnostic.
-
-<h4><a name="design-goals" class="anchor" href="#design-goals"><span class="glyphicon glyphicon-link"></span></a>Design goals</h4>
-Zephyr was conceived as a way to formalize these steps in a Java API for use in any of the most prominent (or promising) BigData processing platforms.  Steps 2-5 in the above steps could be
-created irrespective of the platform they would run in for a given feed, with steps 1 and 6 being determined for the chosen processing platform.  <b>Above all else, the vast majority of work done to your data
-should be dealt with through Zephyr's Core library (or your extensions to that).</b>  Further, by following this pattern, it is overwhelmingly likely that steps 1 and 6 should be solved for you
-right out of the box by using the Zephyr MapReduce or Zephyr Storm (or Spark Streaming) implementations.
-<h5>Spring configuration</h5>
-Spring is used for the configuration of a Zephyr Schema - the normalization, validation, and canonicalization phase.  It's also used as the final glue for a Zephyr MapReduce job - it pulls together steps 1 through 6 listed above
-and makes your job easily configurable at runtime - provided no new parsers, enrichers, or outputters are required.  However, even if these are required, you need only build your own jar and drop it into the Zephyr lib directory and
-refer to the appropriate classes in the Spring configuration file.  To see more, go to the Zephyr [[[LINK]]]Configuration page for more information.
-
-<h4><a name="status" class="anchor" href="#status"><span class="glyphicon glyphicon-link"></span></a>Status</h4>
-After Zephyr's core library was completed, focus shifted from a rigid, hardcoded Zephyr topology to a flexible, configurable MapReduce job instead.
-By chaining the Zephyr ETL process in a map task, we're able to achieve the same process as we did with Storm.  Business needs shifted, and primary development
-of Zephyr focused on MapReduce only, with the Storm branch falling by the wayside.
-<br/>
-While real time development did not continue at the same pace as batch, the core library continues to support either - or even a standalone process.
-
-<h4><a name="contact" class="anchor" href="#contact"><span class="glyphicon glyphicon-link"></span></a>Contact</h4>
-Please feel free to contact <a href="mailto:dwayne.pryce@gmail.com">Dwayne Pryce</a> with any questions you might have about Zephyr.
+<h3><a name="faq" class="anchor" href="#faq"><span class="glyphicon glyphicon-link"></span></a> FAQ</h3>

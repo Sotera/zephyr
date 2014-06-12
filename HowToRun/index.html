@@ -2,7 +2,7 @@
 layout: base
 ---
 
-<h3><a name="how-to-run" class="anchor" href="#how-to-run"><span class="glyphicon glyphicon-link"></span>How to Run Zephyr (MapReduce)</a></h3>
+<h3><a name="how-to-run" class="anchor" href="#how-to-run"><span class="glyphicon glyphicon-link"></span></a>How to Run Zephyr (MapReduce)</h3>
 Zephyr is primarily a library and an abstraction; it's impossible to give you in depth instructions for your own flows.  However, by running through a quick exercise to load some sample wikipedia data through Zephyr
 and into a tab delimited format in MapReduce, we can begin to show how you would use it.
 
@@ -12,13 +12,7 @@ and into a tab delimited format in MapReduce, we can begin to show how you would
     <li><a href="http://sotera.github.io/zephyr/HowToBuild/">Built</a> and <a href="http://sotera.github.io/zephyr/HowToDeploy/">Deployed</a> Zephyr Sample Project (assumption: deploy this to /opt/zephyr/)</li>
 </ul>
 
-<h4><a name="run" class="anchor" href="#run"><span class="glyphicon glyphicon-link"></span>Run Zephyr</a></h4>
-<pre>
-    <code>
-        $ cd /opt/zephyr
-        $ ./run.sh -job twitter-sample.xml
-    </code>
-</pre>
+{% include example.html %}
 
 When this example has finished, there should be a folder in HDFS called /tmp/zephyr-twitter-output.  <br/><br/>
 

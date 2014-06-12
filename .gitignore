@@ -5,3 +5,5 @@ Gemfile.lock
 _site
 .settings
 .gradle
+zephyr-core/
+zephyr-mapreduce/
