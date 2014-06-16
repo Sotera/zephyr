@@ -15,7 +15,7 @@ layout: base
         <a href="https://www.java.com/en/download/">Java 7</a>
     </li>
     <li>
-        <a href="http://www.cloudera.com/content/cloudera/en/home.html">CDH 5.0.0 (MRv1)</a> - Untested on other Hadoop distributions (but it probably works!)
+        <a href="http://www.cloudera.com/content/cloudera/en/home.html">Cloudera</a> CDH 5.0.0 (MRv1) OR CDH 4.5.x (MRv1) - Untested on other Hadoop distributions (but it probably works!)
     </li>
     <li>
         <a href="http://sotera.github.io/zephyr/Download/">Download Zephyr and Zephyr Sample Project</a>
@@ -27,7 +27,15 @@ layout: base
         $ cd zephyr
         $ gradle clean install
         $ cd ../zephyr-sample-project
+    </code>
+
+Then, depending on your version of CDH;
+    <code>
         $ gradle clean dist -PcdhVersion=cdh5
     </code>
+or
+    <code>
+        $ gradle clean dist -PcdhVersion=cdh4
+    </code>
 </pre>
-<b>Note:</b> The flag -PcdhVersion can be set to either cdh4 or cdh5.  To specify a specific version, edit the file zephyr-sample-project/sample-project-mapreduce/gradle.properties.
+<b>Note:</b> To specify a different reversion of CDH, edit the file zephyr-sample-project/sample-project-mapreduce/gradle.properties.
