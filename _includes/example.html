@@ -2,6 +2,14 @@
 <pre>
     <code>
         $ cd /opt/zephyr
-        $ ./run.sh -job twitter-sample.xml
+        $ ./run.sh -job twitter-job.xml
     </code>
 </pre>
+<h4><a name="run-noscript" class="anchor" href="#run-noscript"><span class="glyphicon glyphicon-link"></span></a> Run Zephyr Without A Run Script</h4>
+<pre>
+    <code>
+        $ hadoop jar zephyr-mapreduce-&lt;version&gt;.jar org.zephyr.mapreduce.ZephyrDriver [option]...
+    </code>
+</pre>
+<h4><a name="config" class="anchor" href="#config"><span class="glyphicon glyphicon-link"></span></a> Configuration Options</h4>
+<p>See: <a href="/zephyr/Configuration/#configuration-cmd">Options</a></p>
