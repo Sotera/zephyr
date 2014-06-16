@@ -3,4 +3,69 @@ layout: base
 ---
 
 <h3><a name="configuration" class="anchor" href="#configuration"><span class="glyphicon glyphicon-link"></span></a> Configuration</h3>
-<p>Coming soon!</p>
+
+
+<h4><a name="configuration-cmd" class="anchor" href="#configuration-cmd"><span class="glyphicon glyphicon-link"></span></a> Command Line Configuration</h4>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Parameter
+        </th>
+        <th>
+            Value Required
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            cache
+        </td>
+        <td>
+            Y
+        </td>
+        <td>
+            Path to folder containing the lib directory. Default value is ${current.directory}/lib - if you aren't starting Zephyr in the Zephyr distribution directory, you will need to specify the cache
+            value.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            job
+        </td>
+        <td>
+            Y
+        </td>
+        <td>
+            Name of xml file containing job configuration.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            ip
+        </td>
+        <td>
+            Y
+        </td>
+        <td>
+            Input Path to run Zephyr ingest over (in hdfs). Overrides job configuration setting.
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            op
+        </td>
+        <td>
+            Y
+        </td>
+        <td>
+            Output Path for Zephyr ingest to output to (in hdfs). Overrides job configuration setting.
+        </td>
+    </tr>
+    </tbody>
+</table>
