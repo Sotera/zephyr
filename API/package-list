@@ -1,0 +1,14 @@
+org.zephyr.data
+org.zephyr.enricher
+org.zephyr.mapreduce
+org.zephyr.mapreduce.mapper
+org.zephyr.output
+org.zephyr.output.formatter
+org.zephyr.parser
+org.zephyr.preprocessor
+org.zephyr.schema
+org.zephyr.schema.normalizer
+org.zephyr.schema.scheme
+org.zephyr.schema.validator
+org.zephyr.service
+org.zephyr.util
