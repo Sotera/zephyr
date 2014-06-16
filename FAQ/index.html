@@ -6,3 +6,14 @@ layout: base
 
 <h4><a name="bug" class="anchor" href="#bug"><span class="glyphicon glyphicon-link"></span></a> I found a bug!  How can I let you know?</h4>
 <p>Bug reports can be submitted <a href="https://github.com/Sotera/zephyr/issues/new">here</a>.  We will try and get it resolved as soon as possible.</p>
+
+<h4><a name="forks" class="anchor" href="#forks"><span class="glyphicon glyphicon-link"></span></a> I would like to contribute!  How can I help?</h4>
+<p>First, thanks.  We appreciate it!  Next, go ahead and <a href="https://help.github.com/articles/fork-a-repo">fork</a> <a href="https://github.com/Sotera/zephyr">Zephyr</a> and the <a href="https://github.com/Sotera/zephyr-sample-project">Sample Project</a>.  
+    We could really use help fleshing out our support for Storm and Spark Streaming; while we're very confident the design is there and while we've had Zephyr running within Storm already, we just haven't felt very happy
+    about the level of polish for what code we did have.  The more we made our Storm implementation configurable, the less clean and easy to read it all became - to an extreme degree.  Rather than
+    release something we weren't very happy about, we left it out.  Unfortunately, all of the data we are running through Zephyr into our system is batch, so we don't really have any pressing business
+    needs to support Storm.  All of this is a long way of saying we'd love your help.<br/>
+    If providing Storm or Spark Streaming support is a bit much for you to chew off, we're more than happy to accept contributions for Parsers, Normalizers, Validators, and Enrichers; in addition to Zephyr and
+    the Zephyr Sample Project, we also have a <a href="https://github.com/Sotera/zephyr-contrib">Zephyr-Contrib</a> project that could house useful code if you're willing to provide it.  If you aren't sure where
+    it can go, email <a href="mailto:dwayne.pryce@soteradefense.com">Dwayne Pryce</a> and ask - if it's a general purpose parser that doesn't require overly heavyweight libraries, we may even include it in
+    Zephyr Core, but if it's (for example), an HBaseOutputter or something of that ilk, we'd rather have it as a standalone project under the zephyr-contrib umbrella.</p>
