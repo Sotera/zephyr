@@ -24,8 +24,7 @@ Big Data Implementations
 ------------------------
 Currently, Zephyr supports the following implementations (as in, your code, when written to the Zephyr API, 
 will not need to be recompiled to work with):
-* <a href="http://hadoop.apache.org">Hadoop MapReduce</a> (<a href="http://www.cloudera.com">CDH 4.3.0</a>)
-* <a href="http://storm-project.net">Storm</a>
+* <a href="http://hadoop.apache.org">Hadoop MapReduce</a> (<a href="http://www.cloudera.com">CDH 5.0.0 or CDH 4.7.0</a>)
 
 We also fully plan to support <a href="http://spark-project.org">Spark Streaming</a> - and much of our 
 work for Storm (in  terms of initially loading the data into the platform, and writing the data to our 
